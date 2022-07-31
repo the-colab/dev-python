@@ -2,6 +2,7 @@
 
 
 from argparse import ArgumentParser
+import csv
 import sys
  
 from haversine import haversine
@@ -12,9 +13,6 @@ from haversine import haversine
 
 def main(filename, arg1, arg2):
 
-    class cities:
-        def __init__(self, filename)
-        self.filename=filename
     """ Read city data from a file and find the closest cities to a
     specified location (either an area and city from filename or a
     latitude and longitude which may or may not be in the file).
@@ -32,6 +30,20 @@ def main(filename, arg1, arg2):
     Side effects:
         Writes to stdout.
     """
+
+    # Read the csv file
+
+    with open(filename) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            print(row)
+
+
+
+
+
+    """
     cities = Cities(filename)
     try:
         lat = float(arg1)
@@ -45,6 +57,7 @@ def main(filename, arg1, arg2):
     print(f"For {arg1}, {arg2}, the nearest cities from the file are")
     for result in cities.nearest(point):
         print("    " + ", ".join(result))
+    """
 
 
 def parse_args(arglist):
@@ -60,6 +73,7 @@ def parse_args(arglist):
                         help="a longitude expressed in decimal degrees"
                              " or a city name from the file")
     return parser.parse_args(arglist)
+
 
 if __name__ == "__main__":
     args = parse_args(sys.argv[1:])
